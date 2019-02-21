@@ -8,10 +8,11 @@ from django.http import JsonResponse
 def item_list(request):
     items = Item.objects.all()
     query = request.GET.get('q')
+    favorite_list = None
     if query:
         items = items.filter(name__contains=query)
     if request.user.is_authenticated:
-        favorite_list = request.user.favoriteitem_set.all().values_list('item', flat=True)
+        favorite_list = request.user.user_fav.all().values_list('item', flat=True)
     context = {
         "items": items,
         "favorite_list": favorite_list
@@ -84,7 +85,7 @@ def wishlist(request):
     if query:
         items = Item.objects.filter(name__contains=query)
     if request.user.is_authenticated:
-        favorite_objects = request.user.favoriteitem_set.all()
+        favorite_objects = request.user.user_fav.all()
     for item in items:
         for favorite in favorite_objects:
             if item.id == favorite.item_id:
