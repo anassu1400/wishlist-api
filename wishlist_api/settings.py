@@ -25,7 +25,7 @@ SECRET_KEY = ')^bn_h$1%iue(%3n%nc_-sqt&2_+=@^4iqxkm+^4*)1rbw_2x9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '68.183.210.63']
 
 
 # Application definition
@@ -75,13 +75,24 @@ WSGI_APPLICATION = 'wishlist_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'django',
+            'USER': 'django',
+            'PASSWORD': '15df4607aa11ef344ee9c745f639a88b',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }  
 
 
 # Password validation
