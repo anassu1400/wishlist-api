@@ -31,6 +31,7 @@ class ItemListSerializer(serializers.ModelSerializer):
 
 class ItemDetailSerializer(serializers.ModelSerializer):
     favorited = FavoritedSerializer(many=True)
+    added_by = UserSerializer()
     class Meta:
         model= Item
-        fields = ['name', 'description', 'favorited']
+        fields = ['name', 'description', 'added_by','favorited']
